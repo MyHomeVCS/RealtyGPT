@@ -1,0 +1,40 @@
+.chatContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  max-width: 1200px;
+  background: #828386;
+  flex-direction: column;
+}
+.chatWrapper {
+  width: 100%;
+  height: 100%;
+  background: #4e4f52;
+  display: flex;
+  justify-content: center;
+}
+
+.chatHeader {
+  width: 100%;
+  padding: 4px 8px;
+  display: flex;
+}
+.chatContentContainer {
+  /*width: 100%;*/
+  height: 100%;
+  padding: 4px 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatConversation {
+  width: 100%;
+  height: calc(100% - 300px);
+}
+
+.chatTextArea {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  gap: 6px;
+}
