@@ -1,0 +1,11 @@
+const {BASIC_PARAMETERS_MAPPING} = require("./AI");
+
+const STRING_TYPE_FIELDS = [
+  BASIC_PARAMETERS_MAPPING.developer,
+  BASIC_PARAMETERS_MAPPING.place,
+  // BASIC_PARAMETERS_MAPPING.
+]
+
+module.exports = {
+  STRING_TYPE_FIELDS
+}
