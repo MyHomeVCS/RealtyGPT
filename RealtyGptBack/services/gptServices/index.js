@@ -1,9 +1,4 @@
-const {BASIC_PARAMETERS} = require("../../constants/AI");
-const axios = require("axios");
-
-const compilePromptFromUserPTextPrompt = (text) => `
-  can you get me the following parameters "${BASIC_PARAMETERS.join(' ,')}" from following prompt "${text}"
-`
+const {compilePromptFromUserPTextPrompt} = require("../../src/utils/prompt");
 
 const getParamsFromUserTextPrompt = async (text) => {
   const prompt = compilePromptFromUserPTextPrompt(text);
@@ -16,13 +11,14 @@ const getParamsFromUserTextPrompt = async (text) => {
         Authorization: `Bearer ${process.env.GPT_API_KEY}`,
       },
       body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
+        model: 'gpt-4o',
         messages: [{ role: 'user', content: prompt }],
         max_tokens: 108,
       }),
     });
 
-   return res.json();
+   const jsonResponse = await res.json();
+   return JSON.stringify(jsonResponse.choices[0])
 
 }
 

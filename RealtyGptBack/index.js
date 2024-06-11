@@ -3,7 +3,8 @@ require('dotenv').config();
 const express = require("express");
 const http = require( "http");
 const socketio = require("socket.io");
-const {getParamsFromUserTextPrompt} = require("./services/gptServices");
+const {onMessage} = require("./socketListeners");
+const {findByParams} = require("./services/database");
 
 const app = express();
 
@@ -20,15 +21,13 @@ const io = new socketio.Server(server, {
 });
 
 
-io.on('connection', (socket) => {
+io.on('connection', async (socket) => {
   console.log('a user connected', socket.data.user);
+  await findByParams()
 
 
   socket.on('message', async (text) => {
-    console.log('params', text);
-    const result = await getParamsFromUserTextPrompt(text);
-
-    console.log('getParamsFromUserTextPrompt', result)
+    onMessage(socket, text)
   });
 
   socket.on('disconnect', () => {

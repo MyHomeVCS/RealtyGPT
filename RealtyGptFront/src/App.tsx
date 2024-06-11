@@ -45,7 +45,7 @@ const ChatConversation: FC = () => {
 
   useEffect(() => {
     function onConnect() {
-      alert('CONNECTED')
+      console.info('CONNECTED to socket')
       setIsConnected(true);
     }
 

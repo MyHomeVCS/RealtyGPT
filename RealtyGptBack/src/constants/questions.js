@@ -12,3 +12,6 @@ const questionsByField = {
 module.exports = {
   questionsByField
 }
+
+
+// floor, developer, roomsCount, price, salary, apartmentArea
