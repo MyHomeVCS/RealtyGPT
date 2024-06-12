@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { databaseConfig } from 'src/configs/database.config';
 import { AiModule } from './ai/ai.module';
+import { MessageModule } from './message/message.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { AiModule } from './ai/ai.module';
     }),
     DatabaseModule,
     AiModule,
+    MessageModule,
   ],
   controllers: [AppController],
   providers: [AppService, ChatGateway],
