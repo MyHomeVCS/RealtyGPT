@@ -5,3 +5,8 @@ export interface IMessageDto {
   content: string;
   edited?: boolean;
 }
+
+export interface IInitUser {
+  userId: string;
+  sessionId: string;
+}

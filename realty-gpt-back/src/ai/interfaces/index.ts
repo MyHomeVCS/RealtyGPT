@@ -4,7 +4,8 @@ export interface IOpenAiPostPromptBody {
   n: number;
   stop: null | any;
   temperature: number;
-  prompt: string;
+  prompt?: string;
+  messages: any;
 }
 
 export enum EOpenAiGptTypes {

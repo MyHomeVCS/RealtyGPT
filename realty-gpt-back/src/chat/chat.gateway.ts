@@ -5,6 +5,7 @@ import { MessageDto } from 'src/message/dto/message.dto';
 
 import { Server } from 'socket.io';
 import { AiService } from 'src/ai/ai.service';
+import { IInitUser } from 'src/interfaces';
 
 @WebSocketGateway({ cors: '*' })
 export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
@@ -33,14 +34,24 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
     this.logger.log(`Cliend id:${client.id} disconnected`);
   }
 
+  @SubscribeMessage('init-user')
+  async handleUserInit(@MessageBody() userInfo: IInitUser) {
+    console.log('user', userInfo);
+    const response = await this.aiService.sendSalutation();
+    return {
+      event: 'message',
+      data: response,
+    };
+  }
+
   @SubscribeMessage('message')
-  handleMessage(@MessageBody() message: MessageDto) {
-    console.log('message', message);
+  async handleMessage(@MessageBody() message: MessageDto) {
+    const result = await this.aiService.sendMessage(message.content);
     // this.logger.log(`Message received from client id: ${client.id}`);
     // this.logger.debug(`Payload: ${data}`);
     return {
-      event: 'pong',
-      message,
+      event: 'message',
+      data: result,
     };
   }
 }
