@@ -184,11 +184,11 @@ html {
 .scrollbar::-webkit-scrollbar-thumb {
  border-radius: 6px;
  -webkit-box-shadow: unset;
- background-color: #2e2e2e;
+ background-color: rgba(61, 60, 60, 0.68);
 }
 
 .scrollbar::-webkit-scrollbar-track {
  -webkit-box-shadow: unset;
  border-radius: 10px;
- background-color: #404040;
+ background-color: rgba(115, 114, 114, 0.63);
 }

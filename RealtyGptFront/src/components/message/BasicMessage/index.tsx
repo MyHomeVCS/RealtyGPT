@@ -14,7 +14,7 @@ export const BasicMessage: FC<IBasicMessageProps> = ({ message }) => {
   return (
     <>
       {message.role === 'assistant' && <AssistantIcon />}
-      <div> {message.content} </div>
+      <div className="chatMessageContent"> {message.content} </div>
     </>
   );
 };
