@@ -3,14 +3,13 @@
   height: 100%;
   display: flex;
   max-width: 1200px;
-  background: #828386;
   flex-direction: column;
 }
 .chatWrapper {
   width: 100%;
   height: 100%;
-  background: #4e4f52;
   display: flex;
+  background: #3a3a3a;
   justify-content: center;
 }
 
@@ -20,21 +19,14 @@
   display: flex;
 }
 .chatContentContainer {
-  /*width: 100%;*/
   height: 100%;
-  padding: 4px 8px;
+  padding: 4px 8px 30px 8px;
   display: flex;
   flex-direction: column;
 }
 
 .chatConversation {
+  max-height: 86vh;
   width: 100%;
-  height: calc(100% - 300px);
-}
-
-.chatTextArea {
-  width: 100%;
-  height: 300px;
-  display: flex;
-  gap: 6px;
+  flex: 1;
 }

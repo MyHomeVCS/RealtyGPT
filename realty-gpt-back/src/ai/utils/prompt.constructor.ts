@@ -1,4 +1,4 @@
-import { QUERY_FIELDS } from 'src/ai/constants/aiPrompt';
+import { QUERY_FIELDS } from 'src/ai/constants/ai.queryfields';
 
 export class PromptBuilder {
   private AI_PROMPT_WRAPPER_FIRST_PART = 'extract fields from user prompt: ';

@@ -1,0 +1,33 @@
+.chatTextArea {
+  height: auto;
+  max-height: 250px;
+  display: flex;
+  gap: 6px;
+  /*background: #4e4f52;*/
+  background-color: var(--main-surface-secondary);
+  overflow: hidden;
+  border-radius: 20px;
+  padding: 12px;
+  color: var(--text-primary);
+  justify-content: flex-end;
+  align-items: end;
+}
+.chatTextArea .ant-input  {
+  background: none;
+  border: none;
+
+}
+.chatTextArea .ant-input:focus {
+  border: none;
+  box-shadow: none;
+}
+.chatTextArea .ant-input {
+  color: var(--text-primary);
+}
+
+.chatTextArea .ant-btn  {
+  background: var(--text-quaternary);
+}
+.chatTextArea .ant-btn-icon svg {
+  color: var(--main-surface-primary);
+}

@@ -1,0 +1,52 @@
+.apartmentCardsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.apartmentCard {
+  display: flex;
+  gap: 30px;
+  background: #343333a1;
+  padding: 19px;
+  border-radius: 4px;
+  box-shadow: 0 0 5px #494949a1;
+}
+
+.apartmentCard__name {
+  text-align: center;
+}
+
+.apartmentCard__image {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.apartmentCard__image img {
+  max-width: 200px;
+}
+
+.apartmentCard__content {
+  display: flex;
+  gap: 10px;
+  /*padding-top: 40px;*/
+  flex-direction: column;
+}
+
+.apartmentCard__infoItem {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  padding-right: 100px;
+}
+
+
+.apartmentCard__infoItem__iconGroup {
+  display: flex;
+  gap: 12px;
+}
+
+.apartmentCard__address {
+  margin: 0 0 11px 38px;
+}

@@ -1,52 +1,29 @@
-import { FC, useEffect, useState } from 'react';
-import { socket } from 'src/services/soketConnector';
-import { message, Spin } from 'antd';
-import { EmptyConversation } from 'src/components/chat/EmptyConversation';
-import { getInitialUserData } from 'src/utils/chat.utils';
+import { FC, useEffect, useRef } from 'react';
+import { IMessage } from 'src/interfaces/message';
+import { Message } from 'src/components/message';
+import { TypingLoading } from 'src/components/TypingLoading';
+import { ChatConnectingLoading } from 'src/components/ChatConnectingLoading';
 
-const INITIAL_USER_DATA = getInitialUserData();
+interface IChatConversationProps {
+  conversation: IMessage[];
+  isConnected: boolean;
+  isAiTyping: boolean;
+}
 
-export const ChatConversation: FC = () => {
-  const [conversation, updateConverstion] = useState<any>([]);
-
-  const [isConnected, setIsConnected] = useState(socket.connected);
+export const ChatConversation: FC<IChatConversationProps> = ({ isConnected, conversation, isAiTyping }) => {
+  const scrollAreaRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const onConnect = () => {
-      setIsConnected(true);
-      socket.emit('init-user', INITIAL_USER_DATA);
-    };
-
-    const onDisconnect = () => setIsConnected(false);
-
-    const onMessageEvent = value => {
-      console.log('value', value);
-      updateConverstion(prev => [...prev, { content: value, date: Math.random() }]);
-    };
-
-    socket.on('connect', onConnect);
-    socket.on('disconnect', onDisconnect);
-    socket.on('message', onMessageEvent);
-
-    return () => {
-      socket.off('connect', onConnect);
-      socket.off('disconnect', onDisconnect);
-      socket.off('message', onMessageEvent);
-    };
-  }, []);
+    scrollAreaRef.current?.scrollTo({ top: scrollAreaRef.current?.scrollHeight });
+  }, [conversation.length]);
 
   return (
-    <div className="chatConversation">
-      {!isConnected && <Spin />}
-      {!conversation.length ? (
-        <EmptyConversation />
-      ) : (
-        conversation.map(({ date, content }) => (
-          <div key={date} className="chatMessageItem">
-            <div> {content} </div>
-          </div>
-        ))
-      )}
+    <div className="chatConversation scrollbar" ref={scrollAreaRef}>
+      {!isConnected && <ChatConnectingLoading />}
+      {conversation.map((message, index) => (
+        <Message key={index} message={message} />
+      ))}
+      {isConnected && isAiTyping && <TypingLoading />}
     </div>
   );
 };

@@ -1,0 +1,21 @@
+.chatMessageItem {
+  display: flex;
+  padding: 11px;
+}
+.chatMessageItem.user>div {
+  max-width: 600px;
+  background: #2f2f2f;
+  border-radius: 20px;
+  padding: 10px 22px;
+  box-shadow: 0 0 3px 0 black;
+}
+
+.chatMessageItem.user{
+  flex-direction: row-reverse;
+}
+
+.chatMessageItem.assistant{
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}

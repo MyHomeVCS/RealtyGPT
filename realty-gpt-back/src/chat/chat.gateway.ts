@@ -1,5 +1,5 @@
 import { Logger } from '@nestjs/common';
-import { MessageBody, OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
+import { ConnectedSocket, MessageBody, OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 
 import { MessageDto } from 'src/message/dto/message.dto';
 
@@ -23,21 +23,19 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
   handleConnection(client: any, ...args: any[]) {
     const { sockets } = this.io.sockets;
 
-    console.log('client connected');
     this.logger.log(`Client id: ${client.id} connected`);
     this.logger.debug(`Number of connected clients: ${sockets.size}`);
   }
 
   // @Todo need to handle after implementation database module
   handleDisconnect(client: any) {
-    console.log('client disconnected');
     this.logger.log(`Cliend id:${client.id} disconnected`);
   }
 
   @SubscribeMessage('init-user')
   async handleUserInit(@MessageBody() userInfo: IInitUser) {
-    console.log('user', userInfo);
-    const response = await this.aiService.sendSalutation();
+    this.logger.log('user', userInfo);
+    const response = await this.aiService.sendSalutation(userInfo.userId);
     return {
       event: 'message',
       data: response,
@@ -45,8 +43,9 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
   }
 
   @SubscribeMessage('message')
-  async handleMessage(@MessageBody() message: MessageDto) {
-    const result = await this.aiService.sendMessage(message.content);
+  async handleMessage(@MessageBody() message: MessageDto, @ConnectedSocket() clientSocket: any) {
+    console.log('message', message);
+    const result = await this.aiService.sendMessage(message, clientSocket);
     // this.logger.log(`Message received from client id: ${client.id}`);
     // this.logger.debug(`Payload: ${data}`);
     return {
