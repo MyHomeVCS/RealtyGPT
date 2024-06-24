@@ -1,11 +1,11 @@
 import { FC, useEffect, useRef } from 'react';
-import { IMessage } from 'src/interfaces/message';
+import { IDataMessage, IMessage } from 'src/interfaces/message';
 import { Message } from 'src/components/message';
 import { TypingLoading } from 'src/components/TypingLoading';
 import { ChatConnectingLoading } from 'src/components/ChatConnectingLoading';
 
 interface IChatConversationProps {
-  conversation: IMessage[];
+  conversation: (IMessage | IDataMessage)[];
   isConnected: boolean;
   isAiTyping: boolean;
 }

@@ -25,6 +25,7 @@
   width: 100%;
   padding: 4px 8px;
   display: flex;
+  justify-content: space-between
 }
 .chatContentContainer {
   height: 100%;

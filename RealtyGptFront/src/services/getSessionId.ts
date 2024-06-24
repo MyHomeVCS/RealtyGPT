@@ -11,7 +11,8 @@ export const cleanUserId = () => {
 
 export const getUserId = (): string => {
   const userIdStorage = localStorage.getItem('userId');
-  if (userIdStorage) {
+
+  if (userIdStorage && userIdStorage !== 'null') {
     return userIdStorage;
   }
 

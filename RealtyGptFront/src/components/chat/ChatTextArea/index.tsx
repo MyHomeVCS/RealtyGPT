@@ -5,12 +5,12 @@ import { IMessageDto } from 'src/interfaces/chat';
 import { getUserId } from 'src/services/getSessionId';
 import { ArrowUpOutlined } from '@ant-design/icons';
 import './index.css';
-import { IMessage } from 'src/interfaces/message';
+import { IDataMessage, IMessage } from 'src/interfaces/message';
 
 const USER_ID = getUserId();
 
 interface IChatTextArea {
-  setConversation: Dispatch<SetStateAction<IMessage[]>>;
+  setConversation: Dispatch<SetStateAction<(IMessage | IDataMessage)[]>>;
   setIsAiTyping: Dispatch<SetStateAction<boolean>>;
 }
 export const ChatTextArea: FC<IChatTextArea> = memo(({ setConversation, setIsAiTyping }) => {

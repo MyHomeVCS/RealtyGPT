@@ -5,6 +5,9 @@ import { IDataMessage, IMessage } from 'src/interfaces/message';
 import { socket } from 'src/services/soketConnector';
 import { getInitialUserData } from 'src/utils/chat.utils';
 import { TAiDataResponse } from 'src/interfaces/apartments';
+import { Button, Tooltip } from 'antd';
+import { ReloadOutlined } from '@ant-design/icons';
+import { setUserId } from 'src/services/getSessionId';
 
 const INITIAL_USER_DATA = getInitialUserData();
 
@@ -45,11 +48,23 @@ export const Chat: FC = () => {
     };
   }, []);
 
+  const resetUserSession = () => {
+    setUserId('null');
+    window.location.reload();
+  };
+
   return (
     <div className="chatWrapper">
       <div className="chatContainer">
         <div className="chatHeader">
           <div className="title">Realty GPT</div>
+          <div className="actionBar">
+            <Tooltip title="Reset Session">
+              <Button onClick={resetUserSession}>
+                <ReloadOutlined />
+              </Button>
+            </Tooltip>
+          </div>
         </div>
 
         <div className="chatContentContainer">

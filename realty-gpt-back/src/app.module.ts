@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ChatGateway } from './chat/chat.gateway';
 
@@ -20,9 +19,7 @@ import { ChatModule } from './chat/chat.module';
     }),
     ServeStaticModule.forRoot({
       serveRoot: '/static/',
-      rootPath: (() => {
-        return join(__dirname, '..', 'static');
-      })(),
+      rootPath: join(__dirname, '..', 'client'),
     }),
     DatabaseModule,
     AiModule,
@@ -30,7 +27,7 @@ import { ChatModule } from './chat/chat.module';
     FileServiceModule,
     ChatModule,
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [AppService, ChatGateway],
 })
 export class AppModule {}
