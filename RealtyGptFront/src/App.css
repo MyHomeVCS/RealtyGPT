@@ -16,7 +16,7 @@
   padding: 12px 0;
   background-position: top;
   background-size: cover;
-  background-image: url("./background.webp");
+  /*background-image: url("./assets/background.webp");*/
   /*background: #3a3a3a;*/
   justify-content: center;
 }

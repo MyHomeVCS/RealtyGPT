@@ -8,6 +8,7 @@ import { TAiDataResponse } from 'src/interfaces/apartments';
 import { Button, Tooltip } from 'antd';
 import { ReloadOutlined } from '@ant-design/icons';
 import { setUserId } from 'src/services/getSessionId';
+import gbImg from '../../assets/background.webp';
 
 const INITIAL_USER_DATA = getInitialUserData();
 
@@ -54,7 +55,7 @@ export const Chat: FC = () => {
   };
 
   return (
-    <div className="chatWrapper">
+    <div className="chatWrapper" style={{ backgroundImage: `url(${gbImg})` }}>
       <div className="chatContainer">
         <div className="chatHeader">
           <div className="title">Realty GPT</div>
