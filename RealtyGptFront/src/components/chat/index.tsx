@@ -8,7 +8,9 @@ import { TAiDataResponse } from 'src/interfaces/apartments';
 import { Button, Tooltip } from 'antd';
 import { ReloadOutlined } from '@ant-design/icons';
 import { setUserId } from 'src/services/getSessionId';
-import gbImg from '../../assets/background.webp';
+// import getUnicodeFlagIcon from 'country-flag-icons/unicode';
+
+import gbImg from '../../assets/background.jpg';
 
 const INITIAL_USER_DATA = getInitialUserData();
 
@@ -54,12 +56,30 @@ export const Chat: FC = () => {
     window.location.reload();
   };
 
+  // const countryFlags = useMemo(() => {
+  //   return ['AM', 'RU', 'US'];
+  // }, []);
+
   return (
-    <div className="chatWrapper" style={{ backgroundImage: `url(${gbImg})` }}>
+    <div
+      className="chatWrapper"
+      style={{
+        backgroundImage: `url(${gbImg})`,
+      }}
+    >
       <div className="chatContainer">
         <div className="chatHeader">
           <div className="title">Realty GPT</div>
           <div className="actionBar">
+            {/*<Tooltip title={'Change language'}>*/}
+            {/*  <Select className="languageSwitcher" value={getUnicodeFlagIcon(countryFlags[0])} suffixIcon={null}>*/}
+            {/*    {countryFlags.map(fl => (*/}
+            {/*      <Select.Option key={fl} value={fl}>*/}
+            {/*        {getUnicodeFlagIcon(fl)}*/}
+            {/*      </Select.Option>*/}
+            {/*    ))}*/}
+            {/*  </Select>*/}
+            {/*</Tooltip>*/}
             <Tooltip title="Reset Session">
               <Button onClick={resetUserSession}>
                 <ReloadOutlined />

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import './index.css';
+import 'src/elements/ChatConnectingLoading/index.css';
 
 const LOADING_TEXT = 'Connecting';
 export const ChatConnectingLoading: FC = () => {

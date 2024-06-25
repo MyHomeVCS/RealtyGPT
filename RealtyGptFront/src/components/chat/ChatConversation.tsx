@@ -1,8 +1,8 @@
 import { FC, useEffect, useRef } from 'react';
 import { IDataMessage, IMessage } from 'src/interfaces/message';
 import { Message } from 'src/components/message';
-import { TypingLoading } from 'src/components/TypingLoading';
-import { ChatConnectingLoading } from 'src/components/ChatConnectingLoading';
+import { TypingLoading } from 'src/elements/TypingLoading';
+import { ChatConnectingLoading } from 'src/elements/ChatConnectingLoading';
 
 interface IChatConversationProps {
   conversation: (IMessage | IDataMessage)[];

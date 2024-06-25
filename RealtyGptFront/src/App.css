@@ -39,3 +39,8 @@
   width: 100%;
   flex: 1;
 }
+
+
+.languageSwitcher .ant-select-selector {
+  padding: 0;
+}

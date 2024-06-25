@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import './index.css';
+import 'src/elements/TypingLoading/index.css';
 import { Message } from 'src/components/message';
 
 export const TypingLoading: FC = () => {
