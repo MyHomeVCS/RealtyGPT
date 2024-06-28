@@ -1,0 +1,15 @@
+.languageSwitcher .flag {
+  font-size: 21px;
+}
+
+.languageSwitcher .ant-select-selection-item {
+  line-height: 16px !important;
+}
+
+.languageSwitcher .ant-select-item-option {
+  padding: 2px 2px !important;
+  height: unset !important;
+}
+.languageSwitcher .ant-select-item-option .flag {
+  font-size: 21px;
+}

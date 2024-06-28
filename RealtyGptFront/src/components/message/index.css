@@ -16,11 +16,13 @@
 
 .chatMessageItem.assistant{
   display: flex;
-  align-items: center;
   gap: 20px;
 }
-
-.chatMessageItem.assistant .chatMessageContent {
+.chatMessageItem pre {
+  text-wrap: inherit;
+  font-family: sans-serif;
+}
+.chatMessageItem .assistant .chatMessageContent {
   max-width: 900px;
   min-width: 58px;
   border-radius: 12px;

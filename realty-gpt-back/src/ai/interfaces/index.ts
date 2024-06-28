@@ -1,3 +1,5 @@
+import { ESupportedLanguages } from 'src/interfaces';
+
 export interface IOpenAiPostPromptBody {
   model: EOpenAiGptTypes;
   max_tokens: number;
@@ -10,4 +12,11 @@ export interface IOpenAiPostPromptBody {
 
 export enum EOpenAiGptTypes {
   OMNY = 'gpt-4o',
+}
+
+export type TMultiLanguageMapping = Record<ESupportedLanguages, Record<number, string>>;
+
+export interface ISocketMessageResponse {
+  content: string;
+  language?: ESupportedLanguages;
 }

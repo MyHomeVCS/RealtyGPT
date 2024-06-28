@@ -1,7 +1,12 @@
 import { FC } from 'react';
 import 'src/elements/TypingLoading/index.css';
-import { Message } from 'src/components/message';
+import { EMessageRole } from 'src/interfaces/message';
+import { DynamicMessage } from 'src/components/message';
 
 export const TypingLoading: FC = () => {
-  return <Message message={{ role: 'assistant', content: <div className="typing-loader" /> }} />;
+  return (
+    <DynamicMessage message={{ role: EMessageRole.assistant, content: '' }}>
+      <div className="typing-loader" />
+    </DynamicMessage>
+  );
 };

@@ -1,20 +1,17 @@
-import { FC, ReactElement } from 'react';
-import { AssistantIcon } from 'src/components/chat/AsistantIcon';
-import { IMessage } from 'src/interfaces/message';
+import { FC } from 'react';
+import { EMessageRole, IMessage } from 'src/interfaces/message';
+import { BasicUserMessage } from 'src/components/message/BasicMessage/BasicUserMessage';
+import { BasicAssistantMessage } from 'src/components/message/BasicMessage/BasicAssistantMessage';
 
-export interface IMessageWithJsxContent extends Omit<IMessage, 'content'> {
-  content: string | ReactElement;
+interface IBasicMessageProps extends IPropsWithChildren {
+  message: IMessage;
+  loading?: boolean;
 }
 
-interface IBasicMessageProps {
-  message: IMessageWithJsxContent;
-}
-
-export const BasicMessage: FC<IBasicMessageProps> = ({ message }) => {
-  return (
-    <>
-      {message.role === 'assistant' && <AssistantIcon />}
-      <div className="chatMessageContent"> {message.content} </div>
-    </>
+export const BasicMessage: FC<IBasicMessageProps> = ({ message, children }) => {
+  return message.role === EMessageRole.user ? (
+    <BasicUserMessage message={message}>{children}</BasicUserMessage>
+  ) : (
+    <BasicAssistantMessage message={message}>{children}</BasicAssistantMessage>
   );
 };

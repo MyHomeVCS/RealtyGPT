@@ -12,11 +12,11 @@ need to write some desc.
 #### Linux 
 
 ```bash
-$ sudo chmod +x init_database.sh 
+$ sudo chmod +x init_database_unix.sh 
 ```
 
 ```bash
-$ sudo ./init_database.sh your_username your_password your_dbname
+$ sudo ./init_database_unix.sh your_username your_password your_dbname
 ```
 
 #### Windows

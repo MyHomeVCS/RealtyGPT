@@ -1,6 +1,13 @@
+export enum ESupportedLanguages {
+  armenian = 'armenian',
+  english = 'english',
+  russian = 'russian',
+}
+
 export interface IInitUser {
   userId: string;
   sessionId: string;
+  language: ESupportedLanguages;
 }
 
 export interface IApartmentEntity {
@@ -46,6 +53,7 @@ export interface IAiResponse {
   response: string;
   fields: IFilterFields;
   isPrevFieldsChanged: boolean;
+  lang: ESupportedLanguages;
   predefinedQuestionNumber: number | '';
 }
 

@@ -1,12 +1,13 @@
 import { OpenAI } from 'openai';
 import { Injectable } from '@nestjs/common';
-import { IAiResponse, IFilterFields } from 'src/interfaces';
+import { ESupportedLanguages, IAiResponse, IFilterFields } from 'src/interfaces';
 import { MessageDto } from 'src/message/dto/message.dto';
-import { IOpenAiPostPromptBody } from 'src/ai/interfaces';
+import { IOpenAiPostPromptBody, ISocketMessageResponse } from 'src/ai/interfaces';
 import { JSONFileService } from 'src/file-service/file-service.service';
-import { AI_FIRST_PROMPT, AI_THIRD_PROMPT } from 'src/ai/constants/ai.prompts';
+import { AI_FIRST_PROMPT, AI_SALUTATION_PROMPT, AI_THIRD_PROMPT } from 'src/ai/constants/ai.prompts';
 import { AI_PREDEFINED_QUESTIONS_ANSWERS } from 'src/ai/constants/ai.predefinedQuestions';
 import { getValidFields } from 'src/ai/utils/query.mofifyer';
+import { AI_SALUTATIONS } from 'src/ai/constants/ai.salutations';
 
 // @Todo need to move into database
 const CHAT_HISTORY: Record<string, { role: 'assistant' | 'user'; content: string }[]> = {};
@@ -33,34 +34,34 @@ export class AiService {
     }
   }
 
-  async sendSalutation(userId: string) {
+  async sendSalutation(userId: string, lang: ESupportedLanguages): Promise<ISocketMessageResponse> {
     try {
       await this.getAiResponse(AI_FIRST_PROMPT, userId);
-      const parsedData = await this.getAiResponse(AI_THIRD_PROMPT, userId);
-      return parsedData.response;
+      await this.getAiResponse(AI_THIRD_PROMPT, userId);
+      console.log('SSSSSSSSSSSS', lang);
+      CHAT_HISTORY[userId].unshift();
+      CHAT_HISTORY[userId].push({ role: 'assistant', content: AI_SALUTATIONS[lang] });
+      return { content: AI_SALUTATIONS[lang], language: lang };
     } catch (e) {
       console.error(e);
-      return 'ssory, service is down';
+      return { content: 'ssory, service is down' };
     }
   }
 
-  async generateAnswer(aiResponse: IAiResponse, client: WebSocket): Promise<string> {
-    const predefinedAnswer = aiResponse.predefinedQuestionNumber && AI_PREDEFINED_QUESTIONS_ANSWERS[aiResponse.predefinedQuestionNumber];
+  async generateAnswer(aiResponse: IAiResponse, client: WebSocket): Promise<ISocketMessageResponse> {
+    const predefinedAnswer = aiResponse.predefinedQuestionNumber && AI_PREDEFINED_QUESTIONS_ANSWERS[aiResponse.lang][aiResponse.predefinedQuestionNumber];
     if (predefinedAnswer) {
-      return predefinedAnswer;
+      return { content: predefinedAnswer };
     }
     const validParams = getValidFields(aiResponse.fields);
     if (aiResponse.isPrevFieldsChanged && Object.values(validParams).length >= 3) {
       // @Todo should be send with specific event
       this.getData(aiResponse.fields, client);
-
-      return aiResponse.response;
-      // return this.getData();
     }
-    return aiResponse.response;
+    return { content: aiResponse.response, language: aiResponse.lang };
   }
 
-  async sendMessage(message: MessageDto, client: WebSocket) {
+  async sendMessage(message: MessageDto, client: WebSocket): Promise<ISocketMessageResponse> {
     try {
       const result = await this.getAiResponse(message.content, message.userId);
       console.log('MESSAGE RESPONSE', result);
@@ -68,7 +69,7 @@ export class AiService {
       return this.generateAnswer(result, client);
     } catch (e) {
       console.log('errr', e);
-      return 'sorry, service is down';
+      return { content: 'sorry, service is down' };
     }
   }
   async getAiResponse(prompt: string, userId: string): Promise<IAiResponse> {

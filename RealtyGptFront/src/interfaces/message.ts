@@ -5,13 +5,18 @@ import { TAiDataResponse } from 'src/interfaces/apartments';
 //   content:
 // }
 
+export enum EMessageRole {
+  user = 'user',
+  assistant = 'assistant',
+}
+
 export interface IMessage {
-  role: 'assistant' | 'user';
+  role: EMessageRole;
   content: string;
 }
 
 export interface IDataMessage {
   type: 'data';
-  role: 'assistant';
+  role: EMessageRole.assistant;
   content: TAiDataResponse;
 }

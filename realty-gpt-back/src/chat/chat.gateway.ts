@@ -35,7 +35,7 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
   @SubscribeMessage('init-user')
   async handleUserInit(@MessageBody() userInfo: IInitUser) {
     this.logger.log('user', userInfo);
-    const response = await this.aiService.sendSalutation(userInfo.userId);
+    const response = await this.aiService.sendSalutation(userInfo.userId, userInfo.language);
     return {
       event: 'message',
       data: response,
@@ -45,12 +45,13 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
   @SubscribeMessage('message')
   async handleMessage(@MessageBody() message: MessageDto, @ConnectedSocket() clientSocket: any) {
     console.log('message', message);
-    const result = await this.aiService.sendMessage(message, clientSocket);
+    const data = await this.aiService.sendMessage(message, clientSocket);
     // this.logger.log(`Message received from client id: ${client.id}`);
     // this.logger.debug(`Payload: ${data}`);
+    console.log('DATAAAA', data);
     return {
       event: 'message',
-      data: result,
+      data,
     };
   }
 }
